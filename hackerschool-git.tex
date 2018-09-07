@@ -172,7 +172,7 @@ git config -- global --add color.ui true
 \begin{frame}
 \frametitle{Add a new file to the repo}
 \begin{itemize}
-	\item We are going to reuse the website created from last week. If you don't have it, get it \href{http://todo}{here}
+	\item We are going to reuse the website created from last week. If you don't have it, get it \href{https://pastebin.com/raw/32W4Ct7k}{here}
 	\item once you've added or modified files, in the repo folder, git will notice changes made in the repo
 	\item use the \mintinline{bash}{git status} to see which files git knows exist
 \end{itemize}
@@ -181,14 +181,25 @@ git config -- global --add color.ui true
 \end{center}
 \end{frame}
 
-\subsection{Git Terminology}
+\subsection{How does git work}
+\begin{frame}{Git Basics}
+\begin{itemize}
+	\item git all about snapshots, not deltas
+	\item git thinks of its data as a series of snapshots of a miniature filesystem
+	\item every time you commit, git takes a photo of what your files look like and stores a reference to that object
+	\item git data is a stream of snapshots 
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.7\linewidth]{git_theory}
+\end{center}
+\end{frame}
 \begin{frame}
 \frametitle{Master the Three States (Elements)}
 \begin{itemize}
 	\item \textbf{commit}: record of what files you have changed since the last commit
-	\item files in your git repository can have in three main states:
+	\item files in your git repository can be in three main states:
 	\begin{itemize}
-		\item \textbf{untracked}: any files that is not in your last snap shot and not in your staging area
+		\item \textbf{untracked}: any files that are not in your last snap shot and not in your staging area
 		\item \textbf{unmodified}: files not modified since last snap shot
 		\item \textbf{committed}: data is stored safely in your local database
 		\item \textbf{modified}: file changed but have not committed to your database yet
@@ -226,7 +237,7 @@ git config -- global --add color.ui true
 \frametitle{Create a commit}
 \begin{itemize}
 	\item Run the command \mintinline{bash}{git commit -m "Your message to commit"}
-	\item The message should be related to the commit. No \texttt{some changes}
+	\item The message should be related to the commit
 \end{itemize}
 \begin{center}
 	\includegraphics[width=0.7\linewidth]{git_commit_screenshot}
@@ -319,11 +330,13 @@ git config -- global --add color.ui true
 \begin{frame}
 \frametitle{Branching}
 \begin{itemize}
-	\item branches are a pointer to a snapshot of your changes
-	\item you spawn branches to encapsulate your changes
+	\item allow you to diverge from the main line of development and continue work without messing with the main line	
+	\item killer feature of git as it is incredibly fast and lightweight
+	\item a branch is a lightweight pointer to a commit, default pointer is \texttt{master}
+	\item \texttt{HEAD}: special pointer to local branch that you are currently on
 \end{itemize}
 \begin{center}
-	\includegraphics[width=0.5\linewidth]{branching}
+	\includegraphics[width=0.7\linewidth]{branching}
 \end{center}
 \end{frame}
 
@@ -340,26 +353,28 @@ git config -- global --add color.ui true
 \end{frame}
 
 \begin{frame}
-\frametitle{Creating and checking out a branch}
-\begin{itemize}
-	\item \mintinline{bash}{git branch personal_photo} to create branch
-	\item and then \mintinline{bash}{git checkout personal_photo} OR
-	\item \mintinline{bash}{git checkout -b personal_photo} to do both in one line
-\end{itemize}
+\frametitle{Git checkout}
 \begin{center}
-	\includegraphics[width=0.6\linewidth]{branch_diagram}
+	\includegraphics[width=0.6\linewidth]{checkout_meme}
 \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Creating and checking out a branch}
 \begin{itemize}
-	\item \mintinline{bash}{git branch personal_photo} to create branch
-	\item and then \mintinline{bash}{git checkout personal_photo} OR
-	\item \mintinline{bash}{git checkout -b personal_photo} to do both in one line
+	\item checking out is the act of switching between different versions of a target entity
+	\item entities: files, commits, and branches
 \end{itemize}
+\begin{minted}{bash}
+git branch personal_photo
+git checkout personal_photo
+\end{minted}
+OR:
+\begin{minted}{bash}
+git checkout -b personal_photo
+\end{minted}
 \begin{center}
-	\includegraphics[width=0.6\linewidth]{branch_diagram}
+	\includegraphics[width=0.55\linewidth]{branch_diagram}
 \end{center}
 \end{frame}
 
@@ -372,13 +387,40 @@ git config -- global --add color.ui true
 \end{enumerate}
 \begin{columns}
 	\begin{column}{0.33\linewidth}
+		\includegraphics[width=\linewidth]{branch_1}
+	\end{column}
+	\begin{column}{0.33\linewidth}
 		\includegraphics[width=\linewidth]{branch_2}
 	\end{column}
 	\begin{column}{0.33\linewidth}
 		\includegraphics[width=\linewidth]{branch_3}
 	\end{column}
-	\begin{column}{0.33\linewidth}
-		\includegraphics[width=\linewidth]{branch_1}
+\end{columns}
+\end{frame}
+
+\begin{frame}{git fast forwarding}
+\begin{itemize}
+	\item git does a fast forward when you merge a branch that is ahead of your checked out branch (e.g. merge \texttt{hotfix} into \texttt{master}
+	\item both branches point the same commit and no new commit is made	
+\end{itemize}
+\begin{center}
+	\includegraphics[width=\linewidth]{fast_forward}
+\end{center}
+\end{frame}
+
+\begin{frame}{Three way merge}
+\begin{itemize}
+	\item however a three way merge is not possible if branches have diverged
+	\item git has to do a 3 way merge, a dedicated commit is used to tie together the two histories
+	\item 3 way: three commits to generate the merge commit: two branch tips and their common ancestor
+	\item \mintinline{bash}{git log --oneline --decorate --graph --all}
+\end{itemize}
+\begin{columns}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{three_way_merge}
+	\end{column}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{merge_screenshot}
 	\end{column}
 \end{columns}
 \end{frame}
