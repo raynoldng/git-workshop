@@ -151,45 +151,12 @@ git config -- global --add color.ui true
 \end{frame}
 
 \section{Getting Started}
-\subsection{Setting up a repo}
-\begin{frame}[fragile]
-\frametitle{Create a local git repo}
-\begin{itemize}
-	\item When creating a new project on your local machine, you'll first create a new repository
-	\item Enter the following into the terminal
-\end{itemize}
-\begin{center}
-\begin{minipage}{0.5\textwidth}
-	\begin{minted}{bash}
-	cd ~/Desktop
-	mkdir my_site
-	cd my_site
-	git init
-	\end{minted}
-\end{minipage}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Add a new file to the repo}
-\begin{itemize}
-	\item We are going to reuse the website created from last week. If you don't have it, get it \href{https://pastebin.com/raw/32W4Ct7k}{here}
-	\item once you've added or modified files, in the repo folder, git will notice changes made in the repo
-	\item use the \mintinline{bash}{git status} to see which files git knows exist
-\end{itemize}
-\begin{center}
-	\includegraphics[width=0.5\linewidth]{git_status}
-\end{center}
-\end{frame}
-
 \subsection{How does git work}
 \begin{frame}{Git Basics}
 \begin{itemize}
 	\item git all about snapshots, not deltas
-	\item git thinks of its data as a series of snapshots of a miniature filesystem
 	\item every time you commit, git takes a photo of what your files look like and stores a reference to that object
-	\item git data is a stream of snapshots 
-\end{itemize}
+	\end{itemize}
 \begin{center}
 	\includegraphics[width=0.7\linewidth]{git_theory}
 \end{center}
@@ -220,6 +187,38 @@ git config -- global --add color.ui true
 	\end{column}
 \end{columns}
 \end{frame}
+
+\subsection{Setting up a repo}
+\begin{frame}[fragile]
+\frametitle{Create a local git repo}
+\begin{itemize}
+	\item When creating a new project on your local machine, you'll first create a new repository
+	\item Enter the following into the terminal
+\end{itemize}
+\begin{center}
+	\begin{minipage}{0.5\textwidth}
+		\begin{minted}{bash}
+		cd ~/Desktop
+		mkdir my_site
+		cd my_site
+		git init
+		\end{minted}
+	\end{minipage}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Add a new file to the repo}
+\begin{itemize}
+\item We are going to reuse the website created from last week. If you don't have it, get it \href{https://pastebin.com/raw/32W4Ct7k}{here}
+\item once you've added or modified files, in the repo folder, git will notice changes made in the repo
+\item use the \mintinline{bash}{git status} to see which files git knows exist
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{git_status}
+\end{center}
+\end{frame}
+
 
 \subsection{Saving Changes}
 \begin{frame}
@@ -263,43 +262,6 @@ git config -- global --add color.ui true
 \end{frame}
 
 \begin{frame}
-\frametitle{Stashing changes}
-\begin{itemize}
-	\item stashing is handy if you need to quickly switch context and work on something else
-	\item \mintinline{bash}{git stash} takes your uncommitted changes (both staged and unstaged) and saves them away for later use
-	\item By default, \mintinline{bash}{git stash} will not stash new files and files that are ignored(!), add \mintinline{bash}{-u} or \mintinline{bash}{--include-untracked} to stash untracked files
-\end{itemize}
-\begin{columns}
-	\begin{column}{0.5\linewidth}
-		\includegraphics[width=\linewidth]{stash}
-	\end{column}
-	\begin{column}{0.5\linewidth}
-		\includegraphics[width=\linewidth]{after_stash}
-	\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}
-\frametitle{Stashing untracked or ignored files}
-\begin{itemize}
-	\item By default, \mintinline{bash}{git stash} will not stash new files and files that are ignored(!), add \mintinline{bash}{-u} or \mintinline{bash}{--include-untracked} to stash untracked files
-	\item annotate your stash with a description: \mintinline{bash}{git stash save "message"}
-\end{itemize}
-\begin{center}
-\includegraphics[width=0.5\linewidth]{stash_options}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Applying Stash}
-\begin{itemize}
-	\item Reapply stashed changes with \mintinline{bash}{git stash pop}
-	\item popping \textbf{removes} the changes from your stash and reapplies them to your working copy
-	\item \mintinline{bash}{git stash apply} to reapply changes to your working copy and keep them, useful if want to apply on multiple branches(!)
-\end{itemize}
-\end{frame}
-
-\begin{frame}
 \frametitle{.gitignore}
 \begin{itemize}
 	\item Ignored files are usually build artifacts and machine generated files that can be derived from your repository 
@@ -337,7 +299,7 @@ git config -- global --add color.ui true
 	\item \texttt{HEAD}: special pointer to local branch that you are currently on
 \end{itemize}
 \begin{center}
-	\includegraphics[width=0.7\linewidth]{branching}
+	\includegraphics[width=0.6\linewidth]{branching}
 \end{center}
 \end{frame}
 
@@ -425,6 +387,45 @@ git checkout -b personal_photo
 	\end{column}
 \end{columns}
 \end{frame}
+
+\subsection{Stashing}
+\begin{frame}
+\frametitle{Stashing changes}
+\begin{itemize}
+	\item stashing is handy if you need to quickly switch context and work on something else
+	\item \mintinline{bash}{git stash} takes your uncommitted changes (both staged and unstaged) and saves them away for later use
+	\item By default, \mintinline{bash}{git stash} will not stash new files and files that are ignored(!), add \mintinline{bash}{-u} or \mintinline{bash}{--include-untracked} to stash untracked files
+\end{itemize}
+\begin{columns}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{stash}
+	\end{column}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{after_stash}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stashing untracked or ignored files}
+\begin{itemize}
+\item By default, \mintinline{bash}{git stash} will not stash new files and files that are ignored(!), add \mintinline{bash}{-u} or \mintinline{bash}{--include-untracked} to stash untracked files
+\item annotate your stash with a description: \mintinline{bash}{git stash save "message"}
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{stash_options}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Applying Stash}
+\begin{itemize}
+\item Reapply stashed changes with \mintinline{bash}{git stash pop}
+\item popping \textbf{removes} the changes from your stash and reapplies them to your working copy
+\item \mintinline{bash}{git stash apply} to reapply changes to your working copy and keep them, useful if want to apply on multiple branches(!)
+\end{itemize}
+\end{frame}
+
 
 \subsection{Collabing Online}
 \begin{frame}
@@ -602,11 +603,74 @@ git checkout -b personal_photo
 \begin{itemize}
 	\item reverting undoes a commit by creating a new commit
 	\item safe way to undo changes as it will not rewrite commit history
+	\item \mintinline{bash}{git revert HEAD~2}
 \end{itemize}
+\begin{columns}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{before_revert}
+	\end{column}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{after_revert}
+	\end{column}
+\end{columns}
+\end{frame}
 
+\begin{frame}
+\frametitle{git checkout file}
+\begin{itemize}
+	\item checking out a file similar to \mintinline{bash}{git reset} with a file path, except it updates working directory instead of the stage
+	\item it does not move the move the HEAD reference, so you won't switch branches
+\end{itemize}
 \end{frame}
 
 \subsection{Rebasing}
+\begin{frame}{Rebasing}
+\begin{itemize}
+	\item rebase solves the smae problem as git merge, both are designed to integrate changes from one branch to another
+	\item rebasing doesn't have the extraneous merge commit which can pollute your branch history if you are doing a lot of merges
+	\item rebasing moves the entire branch to begin on the tip of master branch, incoporating all the new commits in master
+\end{itemize}
+\begin{center}
+	\includegraphics[width=\linewidth]{merge_vs_rebase}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Interactive Rebasing}
+\begin{columns}
+	\begin{column}{0.5\linewidth}
+		\begin{minted}{bash}
+		git checkout feature
+		git rebase -i master
+		\end{minted}		
+	\end{column}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=1\linewidth]{rebase_i}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}
+We have covered:
+\begin{itemize}
+	\item setting up a repository
+	\item saving changes
+	\item undoing changes
+	\item inspecting and rewriting history
+	\item collaborating online
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is next?}
+Some things we didn't cover:
+\begin{itemize}
+\item Cherry picking
+\item git wrappers: sourcetree, magit, smartgit
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Talk to us!}
 \begin{itemize}
@@ -623,6 +687,5 @@ git checkout -b personal_photo
 	\end{itemize}
 \end{itemize}
 \end{frame}
-
 
 \end{document}
