@@ -210,7 +210,7 @@ git config --global --add color.ui true
 \begin{frame}
 \frametitle{Add a new file to the repo}
 \begin{itemize}
-\item We are going to reuse the website created from last week. If you don't have it, get it \href{https://pastebin.com/raw/32W4Ct7k}{here}
+\item We are going to reuse the website created from last week. If you don't have it, get it \href{https://pastebin.com/raw/32W4Ct7k}{\textbf{here}}
 \item once you've added or modified files, in the repo folder, git will notice changes made in the repo
 \item use the \mintinline{bash}{git status} to see which files git knows exist
 \end{itemize}
@@ -303,17 +303,16 @@ git config --global --add color.ui true
 \end{center}
 \end{frame}
 
-\begin{frame}
-\frametitle{Common branch commands}
-\begin{itemize}
-	\item \mintinline{bash}{git branch}: list all branches
-	\item \mintinline{bash}{git branch <branch>}: create a new branch of given name
-	\item \mintinline{bash}{git branch -d <branch>}: delete specified branch, cannot delete if have unmerged changes
-	\item \mintinline{bash}{git branch -D <branch>}: force delete specified branch
-	\item \mintinline{bash}{git branch -m <branch>}: rename current branch to <branch>
-	\item \mintinline{bash}{git branch -a}: list all remote branches
-\end{itemize}
-\end{frame}
+%\begin{frame}
+%\frametitle{Common branch commands}
+%\begin{itemize}
+%	\item \mintinline{bash}{git branch}: list all branches
+%	\item \mintinline{bash}{git branch <branch>}: create a new branch of given name
+%	\item \mintinline{bash}{git branch -d <branch>}: delete specified branch, cannot delete if have unmerged changes
+%	\item \mintinline{bash}{git branch -D <branch>}: force delete specified branch
+%	\item \mintinline{bash}{git branch -m <branch>}: rename current branch to <branch>
+%end{itemize}
+%\end{frame}
 
 \begin{frame}
 \frametitle{Git checkout}
@@ -394,7 +393,8 @@ git checkout -b personal_photo
 \begin{itemize}
 	\item stashing is handy if you need to quickly switch context and work on something else
 	\item \mintinline{bash}{git stash} takes your uncommitted changes (both staged and unstaged) and saves them away for later use
-	\item By default, \mintinline{bash}{git stash} will not stash new files and files that are ignored(!), add \mintinline{bash}{-u} or \mintinline{bash}{--include-untracked} to stash untracked files
+	\item \mintinline{bash}{git stash list} to see which stashes you have stored
+	\item \mintinline{bash}{git stash apply stash@{X}} apply specified stash, else latest
 \end{itemize}
 \begin{columns}
 	\begin{column}{0.5\linewidth}
@@ -417,14 +417,14 @@ git checkout -b personal_photo
 \end{center}
 \end{frame}
 
-\begin{frame}
-\frametitle{Applying Stash}
-\begin{itemize}
-\item Reapply stashed changes with \mintinline{bash}{git stash pop}
-\item popping \textbf{removes} the changes from your stash and reapplies them to your working copy
-\item \mintinline{bash}{git stash apply} to reapply changes to your working copy and keep them, useful if want to apply on multiple branches(!)
-\end{itemize}
-\end{frame}
+%\begin{frame}
+%\frametitle{Applying Stash}
+%\begin{itemize}
+%\item Reapply stashed changes with \mintinline{bash}{git stash pop}
+%\item popping \textbf{removes} the changes from your stash and reapplies them to your working copy
+%\item \mintinline{bash}{git stash apply} to reapply changes to your working copy and keep them, useful if want to apply on %multiple branches(!)
+%\end{itemize}
+%\end{frame}
 
 
 \subsection{Collabing Online}
@@ -623,10 +623,24 @@ git checkout -b personal_photo
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{tl;dr}
+\begin{table}[]
+	\begin{tabular}{l|l|l}
+		Command      & Scope        & Common Use Cases                                                     \\
+		\hline
+		git reset    & commit level & discard commits in a private branch or throw away uncommited changes \\
+		git reset    & file level   & unstage a file                                                       \\
+		git checkout & commit level & switch between branches/old snapshots                                \\
+		git revert   & commit level & undo commits on public branch                                       
+	\end{tabular}
+\end{table}
+\end{frame}
+
 \subsection{Rebasing}
 \begin{frame}{Rebasing}
 \begin{itemize}
-	\item rebase solves the smae problem as git merge, both are designed to integrate changes from one branch to another
+	\item rebase solves the same problem as git merge, both are designed to integrate changes from one branch to another
 	\item rebasing doesn't have the extraneous merge commit which can pollute your branch history if you are doing a lot of merges
 	\item rebasing moves the entire branch to begin on the tip of master branch, incoporating all the new commits in master
 \end{itemize}
@@ -674,7 +688,7 @@ Some things we didn't cover:
 \begin{frame}
 \frametitle{Talk to us!}
 \begin{itemize}
-	\item \textbf{Feedback form}: \url{https://tinyurl.com/hs2018-html}
+	\item \textbf{Feedback form}: \url{https://tinyurl.com/hs2018-git}
 	\item \textbf{Completed:}
 	\begin{itemize}
 		\item HTML/CSS
