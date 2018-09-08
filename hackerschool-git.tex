@@ -19,6 +19,7 @@
 \usepackage{tabularx}
 \usepackage{minted}
 \usepackage{makecell}
+\usepackage{animate}
 \setminted[bash]{fontsize=\small, tabsize=2, breaklines, linenos}
 \setminted[HTML]{fontsize=\small, tabsize=2, breaklines, linenos}
 
@@ -108,7 +109,7 @@ Have been doing web development for the past 2 years. Interests: algorithms and 
 \begin{itemize}
 	\item Category of software tools that help software team manage checks changes to source code over time
 	\item every modification to code tracked in a special kind of database
-	\item version control software (VSC) essential part of modern software team's professional practices
+	\item version control software (VCS) essential part of modern software team's professional practices
 	\item Example: \url{https://github.com/torvalds/linux/commits/master}
 \end{itemize}
 
@@ -128,7 +129,7 @@ Have been doing web development for the past 2 years. Interests: algorithms and 
 \begin{frame}
 \frametitle{What is git?}
 \begin{itemize}
-	\item Most widely used modern VSC
+	\item Most widely used modern VCS
 	\item Originally developed in 2005 by Linus Torvalds, famous creator of Linux operating system kernel
 	\item Pros: Performance, Security, Flexibility
 	\item Cons: Hard to learn???
@@ -524,13 +525,88 @@ git checkout -b personal_photo
 \end{frame}
 
 \section{Advanced Features}
-\subsection{Rebasing}
+\subsection{Merge Conflicts}
+\begin{frame}{How merge conflicts occur}
+\begin{itemize}
+	\item when merging, git tries to figure out how to integrate changes
+	\item sometimes, git needs human help, espeically, when two branches touch the same file
+	\item git will mark problematic areas, you will not be able to commit once you resolve them
+	\item you can use dedicated merge tools: e.g. DiffMerge
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{conflict_file}
+\end{center}
+\end{frame}
 \subsection{Reset, Checkout, Revert}
-\subsection{Cherry Picking}
+\begin{frame}{Resetting, Checking out and Reverting}
+\begin{itemize}
+	\item reset, checkout and revert allow you to undo some change to your repo
+	\item reset: takes a specified commit and resets to match the state of repo at that specific commit
+	\item checkout: moves the HEAD ref pointer to a specific commit 
+	\item revert: undo a commit by creating a new commit
+\end{itemize}
+\end{frame}
 
-\section{Conclusion}
-\subsection{Quality of Life Improvements}
+\begin{frame}{Reset a specific commit}
+\begin{itemize}
+	\item resetting is a way to move the tip of branch to a different commit
+	\item \mintinline{bash}{git reset} is a simple way to undo changes that haven't been shared by others
+	\item \mintinline{bash}{git reset HEAD~2}
+	\item oprhaned commits will be deleted next time git does a garbage collection
+\end{itemize}
+\begin{columns}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=0.8\linewidth]{before_reset}
+	\end{column}
+	\begin{column}{0.5\linewidth}
+		\includegraphics[width=0.8\linewidth]{after_reset}
+	\end{column}
+\end{columns}
+\end{frame}
 
+\begin{frame}{reset options}
+\begin{itemize}
+	\item \mintinline{bash}{--soft}: undo commit and put files back onto stage
+	\item \mintinline{bash}{--mixed}: staged snapshot updated to match specified commit, but working directory not affected (default)
+	\item \mintinline{bash}{--hard}: undo the last commit, unstage files and undo and changes in the working directory
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.4\linewidth]{hard_reset_meme}
+\end{center}
+\end{frame}
+
+\begin{frame}{Checkout old commits}
+\begin{itemize}
+	\item \mintinline{bash}{git checkout}: used to update the state of the repository to a specific point in the projects history
+	\item useful for quickly inpsecting an old version of your project
+	\item detached HEAD: no branch reference to HEAD, no way to access new commits if you commit them. So always create a new branch before adding commits
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Nifty Tricks: bisect}
+\begin{itemize}
+	\item \mintinline{bash}{git bisect} does a bianry search through your commit history to help you identify the commit that caused the issue
+\end{itemize}
+\begin{center}
+	\begin{minted}{bash}
+	git bisect start
+	git bisect good <commit>
+	git bisect bad <commit>
+	\end{minted}
+	\includegraphics[width=0.7\linewidth]{git_bisect}
+\end{center}
+\end{frame}
+
+\begin{frame}{Undoing public commits with revert}
+\begin{itemize}
+	\item reverting undoes a commit by creating a new commit
+	\item safe way to undo changes as it will not rewrite commit history
+\end{itemize}
+
+\end{frame}
+
+\subsection{Rebasing}
 \begin{frame}
 \frametitle{Talk to us!}
 \begin{itemize}
